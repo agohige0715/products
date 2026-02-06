@@ -10,19 +10,27 @@
 <body>
     <h1>商品一覧</h1>
 
+    <a href="/products/register">商品を追加</a>
+
     <form action="/products/search" method="GET">
         <input type="text" name="keyword" placeholder="商品名で検索">
         <button type="submit">検索</button>
     </form>
 
-    @if (request()->has('keyword'))
-    <a href="/products">一覧に戻る</a>
-    @endif
-
     <div class="sort-area">
         <h3>価格順で表示</h3>
 
         <form method="GET" action="{{ url()->current() }}">
+
+            <select name="sort" onchange="this.form.submit()">
+                <option value="">並び替えを選択</option>
+                <option value="price_asc" {{ $sort === 'price_asc' ? 'selected' : '' }}>
+                    価格が低い順
+                </option>
+                <option value="price_desc" {{ $sort === 'price_desc' ? 'selected' : '' }}>
+                    価格が高い順
+                </option>
+            </select>
             @if(request('keyword'))
             <input type="hidden" name="keyword" value="{{ request('keyword') }}">
             @endif
@@ -37,20 +45,12 @@
                 </a>
             </div>
             @endif
-
-            <select name="sort" onchange="this.form.submit()">
-                <option value="">並び替えを選択</option>
-                <option value="price_asc" {{ $sort === 'price_asc' ? 'selected' : '' }}>
-                    価格が低い順
-                </option>
-                <option value="price_desc" {{ $sort === 'price_desc' ? 'selected' : '' }}>
-                    価格が高い順
-                </option>
-            </select>
         </form>
     </div>
 
-    <a href="/products/register">商品を追加</a>
+    @if (request()->has('keyword'))
+    <a href="/products">一覧に戻る</a>
+    @endif
 
     <ul>
         @foreach ($products as $product)

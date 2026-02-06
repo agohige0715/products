@@ -13,10 +13,12 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::register('products', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // 商品名
-            $table->integer('price'); // 価格
+            $table->string('name');
+            $table->integer('price');
+            $table->string('image');
+            $table->text('description');
             $table->timestamps();
         });
     }

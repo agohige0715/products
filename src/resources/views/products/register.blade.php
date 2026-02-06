@@ -10,18 +10,44 @@
 <body>
     <h1>商品登録</h1>
 
-    <form action="/products" method="POST">
+    <form action="/products/register" method="POST" enctype="multipart/form-data">
         @csrf
+
         <div>
-            商品名：<input type="text" name="name">
+            <label>商品名</label><br>
+            <input type="text" name="name" value="{{ old('name') }}">
         </div>
+
         <div>
-            価格：<input type="number" name="price">
+            <label>価格</label><br>
+            <input type="number" name="price" value="{{ old('price') }}">
+        </div>
+
+        <div>
+            <label>商品画像</label><br>
+            <input type="file" name="image">
+        </div>
+
+        <div>
+            <label>商品説明</label><br>
+            <textarea name="description">{{ old('description') }}</textarea>
+        </div>
+
+        <div>
+            <label>季節</label><br>
+            @foreach ($seasons as $season)
+            <label>
+                <input
+                    type="radio"
+                    name="season_id"
+                    value="{{ $season->id }}"
+                    {{ old('season_id') == $season->id ? 'checked' : '' }}>
+                {{ $season->name }}
+            </label>
+            @endforeach
         </div>
 
         <button type="submit">登録</button>
-
-        <a href="/products">一覧に戻る</a>
     </form>
 </body>
 

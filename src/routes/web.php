@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::post('/products', [ProductController::class, 'store']);
-Route::get('/products/register', [ProductController::class, 'create']);
+Route::get('/products/register', [ProductController::class, 'register']);
 Route::post('/products/register', [ProductController::class, 'store']);
 Route::get('/products/search', [ProductController::class, 'search']);
 Route::get('/products/{productId}', [ProductController::class, 'show']);
